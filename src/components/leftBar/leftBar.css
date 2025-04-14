@@ -29,3 +29,8 @@
 .menuIcon:hover {
 	background-color: #f1f1f1;
 }
+
+.logo {
+	width: 24px;
+	height: 24px;
+}
