@@ -1,34 +1,35 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import Image from "../image/image";
 import "./userButton.css";
 
 const UserButton = () => {
-	const [open, setOpen] = useState(false);
-	// TEMP
-	const currentUser = true;
+  const [open, setOpen] = useState(false);
+  // TEMP
+  const currentUser = true;
 
-	return currentUser ? (
-		<div className="userButton">
-			<img src="/general/noAvatar.png" alt="" />
-			{/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
-			<img
-				onClick={() => setOpen((prev) => !prev)}
-				src="/general/arrow.svg"
-				alt=""
-				className="arrow"
-			/>
-			{open && (
-				<div className="userOptions">
-					<div className="userOption">Profile</div>
-					<div className="userOption">Settings</div>
-					<div className="userOption">Logout</div>
-				</div>
-			)}
-		</div>
-	) : (
-		<a href="/" className="loginLink">
-			Login / Sign Up
-		</a>
-	);
+  return currentUser ? (
+    <div className="userButton">
+      <Image path="/general/noAvatar.png" alt="" />
+
+      <Image
+        onClick={() => setOpen((prev) => !prev)}
+        path="/general/arrow.svg"
+        alt=""
+        className="arrow"
+      />
+      {open && (
+        <div className="userOptions">
+          <div className="userOption">Profile</div>
+          <div className="userOption">Settings</div>
+          <div className="userOption">Logout</div>
+        </div>
+      )}
+    </div>
+  ) : (
+    <a href="/" className="loginLink">
+      Login / Sign Up
+    </a>
+  );
 };
 
 export default UserButton;

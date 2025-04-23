@@ -1,6 +1,6 @@
 import { IKImage } from "imagekitio-react";
 
-const Image = ({ path, alt, className, w, h }) => {
+const Image = ({ path, alt, className, w, h, onClick }) => {
   return (
     <IKImage
       urlEndpoint={import.meta.env.VITE_URL_IK_ENDPOINT}
@@ -15,6 +15,7 @@ const Image = ({ path, alt, className, w, h }) => {
       loading="lazy"
       lqip={{ active: true, quality: 20 }}
       className={className}
+      onClick={onClick}
     />
   );
 };
