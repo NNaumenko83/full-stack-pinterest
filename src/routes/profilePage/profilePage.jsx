@@ -2,9 +2,10 @@ import "./profilePage.css";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useParams } from "react-router";
-import Image from "../../components/Image/Image";
-import Collections from "../../components/collections/collections";
+
+import Boards from "../../components/boards/boards";
 import Gallery from "../../components/gallery/gallery";
+import Image from "../../components/image/image";
 import apiRequest from "../../utils/apiRequest";
 
 const ProfilePage = () => {
@@ -20,7 +21,6 @@ const ProfilePage = () => {
   if (isPending) return <div>Loading...</div>;
   if (error) return <div>Error loading user: {error.message}</div>;
   if (!data) return <div>User not found</div>;
-  console.log("data:", data);
 
   return (
     <div className="profilePage">
@@ -59,7 +59,11 @@ const ProfilePage = () => {
           Saved
         </span>
       </div>
-      {type === "created" ? <Gallery userId={data._id} /> : <Collections />}
+      {type === "created" ? (
+        <Gallery userId={data._id} />
+      ) : (
+        <Boards userId={data._id} />
+      )}
     </div>
   );
 };

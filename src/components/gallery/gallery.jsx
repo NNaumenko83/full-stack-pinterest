@@ -160,19 +160,20 @@ const BASE_URL = import.meta.env.VITE_API_ENDPOINT;
 //   },
 // ];
 
-const fetchPins = async ({ pageParam, search, userId }) => {
+const fetchPins = async ({ pageParam, search, userId, boardId }) => {
   const res = await axios.get(
     `${BASE_URL}/pins?cursor=${pageParam}&search=${search || ""}&userId=${
       userId || ""
-    }`
+    }&boardId=${boardId || ""}`
   );
   return res.data;
 };
 
-const Gallery = ({ search, userId }) => {
+const Gallery = ({ search, userId, boardId }) => {
   const { data, fetchNextPage, hasNextPage, status, error } = useInfiniteQuery({
     queryKey: ["pins", search, userId],
-    queryFn: ({ pageParam = 0 }) => fetchPins({ search, pageParam, userId }),
+    queryFn: ({ pageParam = 0 }) =>
+      fetchPins({ search, pageParam, userId, boardId }),
     initialPageParam: 0,
     getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
   });
