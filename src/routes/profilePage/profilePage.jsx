@@ -7,6 +7,7 @@ import Boards from "../../components/boards/boards";
 import Gallery from "../../components/gallery/gallery";
 import Image from "../../components/image/image";
 import apiRequest from "../../utils/apiRequest";
+import FollowButton from "./FollowButton";
 
 const ProfilePage = () => {
   const [type, setType] = useState("saved");
@@ -33,12 +34,17 @@ const ProfilePage = () => {
       />
       <h1 className="profileName">{data.displayName}</h1>
       <span className="profileUsername">@{data.userName}</span>
-      <div className="followCounts">10 followers • 20 followings</div>
+      <div className="followCounts">
+        {data.followerCount} followers • {data.followingCount} followings
+      </div>
       <div className="profileInteractions">
         <Image path="/general/share.svg" alt="" />
         <div className="profileButtons">
           <button type="button">Message</button>
-          <button type="button">Follow</button>
+          <FollowButton
+            isFollowing={data.isFollowing}
+            userName={data.userName}
+          />
         </div>
 
         <Image path="/general/more.svg" alt="" />

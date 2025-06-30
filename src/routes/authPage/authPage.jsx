@@ -1,10 +1,34 @@
 import "./authPage.css";
 import { useState } from "react";
 import Image from "../../components/image/image.jsx";
+import apiRequest from "../../utils/apiRequest.js";
+import { useNavigate } from "react-router";
+import useAuthStore from "../../utils/authStore.js";
 
 const AuthPage = () => {
   const [isRegister, setIsRegister] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const { setCurrentUser } = useAuthStore();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const res = await apiRequest.post(
+        `/users/auth/${isRegister ? "register" : "login"}`,
+        data
+      );
+
+      setCurrentUser(res.data.user);
+
+      navigate("/");
+    } catch (err) {
+      setError(err.response.data.message);
+    }
+  };
 
   return (
     <div className="authPage">
@@ -14,14 +38,14 @@ const AuthPage = () => {
           {isRegister ? "Create an account" : "Login to your account"}
         </h1>
         {isRegister ? (
-          <form key="register">
+          <form key="register" onSubmit={handleSubmit}>
             <div className="formGroup">
-              <label htmlFor="email">Username</label>
+              <label htmlFor="userName">Username</label>
               <input
                 type="text"
-                name="username"
-                id="username"
-                placeholder="Username"
+                name="userName"
+                id="userName"
+                placeholder="userName"
                 required
               />
             </div>
@@ -59,10 +83,10 @@ const AuthPage = () => {
             <p className="" onClick={() => setIsRegister(false)}>
               Do you have an account? <b>Login</b>
             </p>
-            {error && <p classname="error">{error}</p>}
+            {error && <p className="error">{error}</p>}
           </form>
         ) : (
-          <form key="login">
+          <form key="login" onSubmit={handleSubmit}>
             <div className="formGroup">
               <label htmlFor="email">Email</label>
               <input
@@ -87,7 +111,7 @@ const AuthPage = () => {
             <p className="" onClick={() => setIsRegister(true)}>
               Don't have an account <b>Register</b>
             </p>
-            {error && <p classname="error">{error}</p>}
+            {error && <p className="error">{error}</p>}
           </form>
         )}
       </div>
