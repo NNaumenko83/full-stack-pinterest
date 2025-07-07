@@ -121,3 +121,30 @@ small {
 		width: 100%;
 	}
 }
+
+
+.preview{
+	width: 375px;
+	position: relative;
+}
+
+.preview img{
+	border-radius: 32px;
+	width: 100%;
+
+}
+
+.editIcon {
+	position: absolute;
+	top: 16px;
+	right: 16px;
+	background: #fff;
+	width: 40px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+    justify-content: center;
+    padding: 6px;	
+	border-radius: 50%;
+	cursor: pointer;
+}
